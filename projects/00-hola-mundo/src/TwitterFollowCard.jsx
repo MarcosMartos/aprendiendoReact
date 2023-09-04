@@ -1,9 +1,4 @@
-export function TwitterFollowCard({
-  formattedUserName,
-  userName,
-  name,
-  isFollowing,
-}) {
+export function TwitterFollowCard({ children, userName, isFollowing }) {
   return (
     <article className="tw-followCard">
       <header className="tw-followCard-header">
@@ -13,10 +8,8 @@ export function TwitterFollowCard({
           alt="Avatar de un tipo"
         />
         <div className="tw-followCard-info">
-          <strong> {name} </strong>
-          <span className="tw-followCard-infoUserName">
-            {formattedUserName}{" "}
-          </span>
+          <strong> {children} </strong>
+          <span className="tw-followCard-infoUserName">@{userName} </span>
         </div>
       </header>
 

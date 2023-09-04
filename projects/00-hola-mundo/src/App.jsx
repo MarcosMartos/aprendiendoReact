@@ -2,22 +2,14 @@ import "./App.css";
 import { TwitterFollowCard } from "./TwitterFollowCard";
 
 export function App() {
-  const formattedUserName = <span>@algo</span>;
-
   return (
     <section className="App">
-      <TwitterFollowCard
-        formattedUserName={formattedUserName}
-        isFollowing={true}
-        userName={"MarcosMartos"}
-        name={"Marcos Martos"}
-      />
-      <TwitterFollowCard
-        formattedUserName={formattedUserName}
-        isFollowing={false}
-        userName={"midudev"}
-        name={"Miguel Ángel Durán"}
-      />
+      <TwitterFollowCard isFollowing={true} userName={"MarcosMartos"}>
+        Marcos Martos
+      </TwitterFollowCard>
+      <TwitterFollowCard isFollowing={false} userName={"midudev"}>
+        Miguel Ángel Durán
+      </TwitterFollowCard>
     </section>
   );
 }
