@@ -8,7 +8,16 @@ import "./App.css";
 
 const Square = ({ children, isSelected, updateBoard, index }) => {
   const className = `square ${isSelected ? "is-selected" : ""}`;
-  return <div className={className}>{children}</div>;
+
+  const handleClick = () => {
+    updateBoard(index);
+  };
+
+  return (
+    <div onClick={handleClick} className={className}>
+      {children}
+    </div>
+  );
 };
 
 function App() {
@@ -16,12 +25,25 @@ function App() {
 
   const [turn, setTurn] = useState(TURNS.X);
 
+  const updateBoard = (index) => {
+    const newBoard = [...board];
+    newBoard[index] = turn;
+    setBoard(newBoard);
+
+    const newTurn = turn === TURNS.X ? TURNS.O : TURNS.X;
+    setTurn(newTurn);
+  };
+
   return (
     <main className="board">
       <h1>Tres en raya</h1>
       <section className="game">
-        {board.map((_, index) => {
-          return <Square key={index} index={index}></Square>;
+        {board.map((square, index) => {
+          return (
+            <Square key={index} index={index} updateBoard={updateBoard}>
+              {square}
+            </Square>
+          );
         })}
       </section>
 
