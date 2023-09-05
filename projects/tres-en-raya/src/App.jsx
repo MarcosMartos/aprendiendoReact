@@ -6,12 +6,15 @@ const TURNS = {
 import { useState } from "react";
 import "./App.css";
 
-const Square = ({ children, updateBoard, index }) => {
-  return <div className="square">{children}</div>;
+const Square = ({ children, isSelected, updateBoard, index }) => {
+  const className = `square ${isSelected ? "is-selected" : ""}`;
+  return <div className={className}>{children}</div>;
 };
 
 function App() {
   const [board, setBoard] = useState(Array(9).fill(null));
+
+  const [turn, setTurn] = useState(TURNS.X);
 
   return (
     <main className="board">
@@ -20,6 +23,11 @@ function App() {
         {board.map((_, index) => {
           return <Square key={index} index={index}></Square>;
         })}
+      </section>
+
+      <section className="turn">
+        <Square isSelected={turn === TURNS.X}>{TURNS.X}</Square>
+        <Square isSelected={turn === TURNS.O}>{TURNS.O}</Square>
       </section>
     </main>
   );
