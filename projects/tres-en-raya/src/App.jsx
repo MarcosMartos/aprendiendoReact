@@ -3,8 +3,7 @@ const TURNS = {
   O: "o",
 };
 
-const board = Array(9).fill(null);
-
+import { useState } from "react";
 import "./App.css";
 
 const Square = ({ children, updateBoard, index }) => {
@@ -12,6 +11,8 @@ const Square = ({ children, updateBoard, index }) => {
 };
 
 function App() {
+  const [board, setBoard] = useState(Array(9).fill(null));
+
   return (
     <main className="board">
       <h1>Tres en raya</h1>
