@@ -4,6 +4,7 @@ const TURNS = {
 };
 
 import { useState } from "react";
+import confetti from "canvas-confetti";
 import "./App.css";
 
 const Square = ({ children, isSelected, updateBoard, index }) => {
@@ -50,6 +51,22 @@ function App() {
         return boardToCheck[a]; // x u o
       }
     }
+
+    //Si no hay ganador
+    return null;
+  };
+
+  const resetGame = () => {
+    setBoard(Array(9).fill(null));
+    setTurn(TURNS.X);
+    setWinner(null);
+  };
+
+  const checkEndGame = (newBoard) => {
+    // Revisamos si hay empate cuadno ya no hay más espacios
+    //en blanco.
+
+    return newBoard.every((square) => square !== null);
   };
 
   const updateBoard = (index) => {
@@ -66,14 +83,17 @@ function App() {
     // Revisar si hay un ganador
     const newWinner = checkWinner(newBoard);
     if (newWinner) {
+      confetti();
       setWinner(newWinner);
-      console.log(winner);
+    } else if (checkEndGame(newBoard)) {
+      setWinner(false);
     }
   };
 
   return (
     <main className="board">
       <h1>Tres en raya</h1>
+      <button onClick={resetGame}>Reset del juego</button>
       <section className="game">
         {board.map((square, index) => {
           return (
@@ -88,6 +108,20 @@ function App() {
         <Square isSelected={turn === TURNS.X}>{TURNS.X}</Square>
         <Square isSelected={turn === TURNS.O}>{TURNS.O}</Square>
       </section>
+
+      {winner !== null && (
+        <section className="winner">
+          <div className="text">
+            <h2>{winner === false ? "Empate" : "Ganó " + winner}</h2>
+            <header className="win">
+              {winner && <Square> {winner} </Square>}
+            </header>
+            <footer>
+              <button onClick={resetGame}>Empezar de nuevo</button>
+            </footer>
+          </div>
+        </section>
+      )}
     </main>
   );
 }
